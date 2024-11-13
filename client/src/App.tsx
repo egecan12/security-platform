@@ -7,7 +7,8 @@ import {
 } from "react-router-dom";
 import Login from "./components/login";
 import Register from "./components/register";
-
+import Dashboard from "./components/dashboard";
+import MakePassword from "./pages/makePassword";
 const App: React.FC = () => {
   const isLoggedIn = !!localStorage.getItem("token");
 
@@ -18,14 +19,9 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route
           path="/dashboard"
-          element={
-            isLoggedIn ? (
-              <div>Welcome to the Dashboard</div>
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
+          element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
         />
+        <Route path="/make-password" element={<MakePassword />} />
       </Routes>
     </Router>
   );
