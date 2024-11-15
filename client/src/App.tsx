@@ -5,10 +5,12 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import Login from "./components/login";
-import Register from "./components/register";
-import Dashboard from "./components/dashboard";
+import Login from "./pages/login";
+import Register from "./pages/register";
+import Dashboard from "./pages/dashboard";
 import MakePassword from "./pages/makePassword";
+import SslTest from "./pages/sslTest";
+
 const App: React.FC = () => {
   const isLoggedIn = !!localStorage.getItem("token");
 
@@ -16,12 +18,15 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Register />} />
         <Route
           path="/dashboard"
           element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
         />
         <Route path="/make-password" element={<MakePassword />} />
+        <Route path="/ssl-test" element={<SslTest />} />
+
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );

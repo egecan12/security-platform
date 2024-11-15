@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import icon2 from "../imgs/icon2.png"; // Adjust the path
 
 // Sample list of common passwords
 const commonPasswords = [
@@ -122,6 +123,11 @@ const MakePassword: React.FC = () => {
   return (
     <div style={styles.container}>
       <h1>Task 1</h1>
+      <img
+        src={icon2}
+        alt="Description of the image"
+        style={{ width: "200px" }}
+      />{" "}
       <p>Learn to generate password secure in order to move on to next step.</p>
       <p>Your password must be super-strong</p>
       <h2>Create a Strong Password</h2>
@@ -142,16 +148,6 @@ const MakePassword: React.FC = () => {
       <p style={styles.label}>
         {strength < 3 ? "Weak" : strength < 5 ? "Moderate" : "Strong"} Password
       </p>
-      <h1>Rules of Safety</h1>
-      <p style={styles.instructions}>
-        Never use the same password! To create a more secure password, use at
-        least 12 characters that include a mix of uppercase and lowercase
-        letters, numbers, and symbols. Avoid using sequential patterns (like
-        "1234" or "abcd") and steer clear of common words or phrases that are
-        easily guessed. A strong password should be unique and not contain any
-        commonly used words like "password" or "qwerty."
-      </p>
-
       {strength === 6 && (
         <div>
           <span>Good Job ! </span>
@@ -160,6 +156,17 @@ const MakePassword: React.FC = () => {
           </button>
         </div>
       )}
+      <h1>Rules of Safety</h1>
+      <p style={styles.instructions}>
+        Never use the same password! <br />
+        To create a more secure password, use at least 12 characters that
+        include a mix of uppercase and lowercase letters, numbers, and symbols.
+        <br />
+        Avoid using sequential patterns (like "1234" or "abcd") and steer clear
+        of common words or phrases that are easily guessed. A strong password
+        should be unique and not contain any commonly used words like "password"
+        or "qwerty."
+      </p>
     </div>
   );
 };
