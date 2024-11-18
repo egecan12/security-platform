@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import icon3 from "../imgs/icon3.png"; // Adjust the path
 
 const SSLTest: React.FC = () => {
@@ -6,9 +7,68 @@ const SSLTest: React.FC = () => {
   const [securePassword, setSecurePassword] = useState("");
   const [insecureUsername, setInsecureUsername] = useState("");
   const [insecurePassword, setInsecurePassword] = useState("");
+  const [showWarning, setShowWarning] = useState(false); // To control the black screen
+  const [showSuccess, setShowSuccess] = useState(false); // To control the black screen
+
+  const navigate = useNavigate();
+
+  const handleInsecureLogin = () => {
+    setShowWarning(true); // Show the warning message
+    setTimeout(() => {
+      navigate("/phishing-test"); // Redirect after delay
+    }, 3000); // 3-second delay
+  };
+  const handleSecureLogin = () => {
+    setShowSuccess(true); // Show the warning message
+    setTimeout(() => {
+      navigate("/phishing-test"); // Redirect after delay
+    }, 3000); // 3-second delay
+  };
 
   return (
     <div style={{ fontFamily: "Arial, sans-serif", textAlign: "center" }}>
+      {/* Warning Overlay */}
+      {showWarning && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "black",
+            color: "red",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "24px",
+            zIndex: 1000,
+          }}
+        >
+          Wrong Choice ! Your password may be compromised!
+        </div>
+      )}
+      {showSuccess && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "black",
+            color: "green",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "24px",
+            zIndex: 1000,
+          }}
+        >
+          Good Choice ! Your password is securely encyrted!
+        </div>
+      )}
+
       {/* Blue Banner */}
       <div
         style={{
@@ -102,12 +162,12 @@ const SSLTest: React.FC = () => {
               />
             </label>
           </div>
-          {/* Login Button */}
           <button
+            onClick={handleSecureLogin} // Trigger warning and redirect
             style={{
               backgroundColor: "green",
               color: "white",
-              padding: "5px 10px", // Added top padding
+              padding: "5px 20px",
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",
@@ -180,12 +240,12 @@ const SSLTest: React.FC = () => {
               />
             </label>
           </div>
-          {/* Login Button */}
           <button
+            onClick={handleInsecureLogin} // Trigger warning and redirect
             style={{
               backgroundColor: "green",
               color: "white",
-              padding: "5px 10px", // Added top padding
+              padding: "5px 20px",
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",

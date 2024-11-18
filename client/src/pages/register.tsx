@@ -38,15 +38,10 @@ const Register: React.FC = () => {
           textAlign: "center",
         }}
       >
-        <h1>Welcome to Our Registration System</h1>
+        <h1>Welcome to My Security Training Platform</h1>
         <p>
-          Security awareness training software provides businesses with online
-          courses to train and assess their employees' security readiness.
-          Businesses use these tools to outsource security training to
-          specialized providers with experience and courses specific to a
-          variety of security measures. Many of these tools deliver simulated
-          attacks or fraudulent emails to help employees better identify
-          malicious content before encountering it in real-life scenarios.
+          This app let you learn security practices on Web and help you to
+          better understand{" "}
         </p>
         {/* Login Button */}
         <button

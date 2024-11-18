@@ -2,59 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import icon2 from "../imgs/icon2.png"; // Adjust the path
 
-// Sample list of common passwords
 const commonPasswords = [
   "123456",
   "password",
-  "12345678",
-  "qwerty",
-  "abc123",
-  "password1",
-  "111111",
-  "123123",
-  "123456789",
-  "12345",
-  "1234",
-  "iloveyou",
-  "123",
-  "000000",
-  "1234567",
-  "letmein",
-  "sunshine",
-  "admin",
-  "welcome",
-  "monkey",
-  "qwertyuiop",
-  "654321",
-  "superman",
-  "1q2w3e4r",
-  "asdfgh",
-  "zxcvbnm",
-  "1qaz2wsx",
-  "password123",
-  "123qwe",
-  "trustno1",
-  "whatever",
-  "qazwsx",
-  "michael",
-  "football",
-  "baseball",
-  "dragon",
-  "princess",
-  "shadow",
-  "cheese",
-  "batman",
-  "jennifer",
-  "letmein123",
-  "hello123",
-  "love123",
-  "freedom",
-  "trustme",
-  "cookie",
-  "flower",
-  "jesus",
-  "soccer",
-  "killer",
+  "12345678" /* Add other common passwords */,
 ];
 
 const MakePassword: React.FC = () => {
@@ -64,34 +15,15 @@ const MakePassword: React.FC = () => {
 
   const calculateStrength = (password: string) => {
     let score = 0;
-
-    // Increase score for length
     if (password.length >= 8) score += 1;
     if (password.length >= 12) score += 1;
-
-    // Increase score for character diversity
-    if (/[a-z]/.test(password)) score += 1; // Lowercase letters
-    if (/[A-Z]/.test(password)) score += 1; // Uppercase letters
-    if (/[0-9]/.test(password)) score += 1; // Numbers
-    if (/[^a-zA-Z0-9]/.test(password)) score += 1; // Special characters
-
-    // Deduct score for common passwords
-    if (commonPasswords.includes(password.toLowerCase())) {
-      score -= 2; // Strong penalty for common passwords
-    }
-
-    // Deduct score for sequential characters or numbers
-    if (hasSequentialChars(password)) {
-      score -= 1; // Penalty for sequential patterns
-    }
-
-    setStrength(Math.max(score, 0)); // Ensure strength is not negative
-  };
-
-  const hasSequentialChars = (password: string) => {
-    const sequenceRegex =
-      /(012|123|234|345|456|567|678|789|890|abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz)/i;
-    return sequenceRegex.test(password);
+    if (/[a-z]/.test(password)) score += 1;
+    if (/[A-Z]/.test(password)) score += 1;
+    if (/[0-9]/.test(password)) score += 1;
+    if (/[^a-zA-Z0-9]/.test(password)) score += 1;
+    if (commonPasswords.includes(password.toLowerCase())) score -= 2;
+    if (/123|abc|qwerty/.test(password.toLowerCase())) score -= 1;
+    setStrength(Math.max(score, 0));
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,69 +36,94 @@ const MakePassword: React.FC = () => {
     switch (strength) {
       case 1:
       case 2:
-        return "#ff4d4d"; // Weak (Red)
+        return "#ff4d4d"; // Weak
       case 3:
       case 4:
-        return "#ffa500"; // Moderate (Orange)
+        return "#ffa500"; // Moderate
       case 5:
       case 6:
-        return "#4caf50"; // Strong (Green)
+        return "#4caf50"; // Strong
       default:
-        return "#ddd"; // Very Weak (Gray)
+        return "#ddd"; // Very Weak
     }
   };
 
-  const handleStartSSLTest = () => {
-    navigate("/ssl-test"); // Navigate to ssl-test page
-  };
+  const handleStartSSLTest = () => navigate("/ssl-test");
 
   return (
-    <div style={styles.container}>
-      <h1>Task 1</h1>
-      <img
-        src={icon2}
-        alt="Description of the image"
-        style={{ width: "200px" }}
-      />{" "}
-      <p>Learn to generate password secure in order to move on to next step.</p>
-      <p>Your password must be super-strong</p>
-      <h2>Create a Strong Password</h2>
-      <input
-        type="password"
-        value={password}
-        onChange={handlePasswordChange}
-        placeholder="Enter your password"
-        style={styles.input}
-      />
+    <div>
+      {" "}
+      {/* Blue Banner */}
       <div
         style={{
-          ...styles.thermometer,
-          backgroundColor: getStrengthColor(),
-          width: `${(strength / 6) * 100}%`,
+          backgroundColor: "#007BFF",
+          color: "white",
+          padding: "20px",
+          marginBottom: "20px",
+          width: "100%",
+          left: 0,
+          top: 0,
+          position: "relative", // Ensures the banner is stretched across the page
         }}
-      />
-      <p style={styles.label}>
-        {strength < 3 ? "Weak" : strength < 5 ? "Moderate" : "Strong"} Password
-      </p>
-      {strength === 6 && (
-        <div>
-          <span>Good Job ! </span>
-          <button style={styles.button} onClick={handleStartSSLTest}>
-            Proceed to Task 2
-          </button>
-        </div>
-      )}
-      <h1>Rules of Safety</h1>
-      <p style={styles.instructions}>
-        Never use the same password! <br />
-        To create a more secure password, use at least 12 characters that
-        include a mix of uppercase and lowercase letters, numbers, and symbols.
-        <br />
-        Avoid using sequential patterns (like "1234" or "abcd") and steer clear
-        of common words or phrases that are easily guessed. A strong password
-        should be unique and not contain any commonly used words like "password"
-        or "qwerty."
-      </p>
+      >
+        <h1>Create a Strong Password</h1>
+        <p>
+          In today's digital world, password security is critical. Avoid using
+          common passwords and make sure your passwords are long, unique, and
+          include a mix of characters, numbers, and symbols.
+        </p>
+      </div>
+      <div style={styles.container}>
+        <h1>Task 1</h1>
+        <img
+          src={icon2}
+          alt="Description of the image"
+          style={{ width: "200px" }}
+        />{" "}
+        <p>
+          Learn to generate password secure in order to move on to next step.
+        </p>
+        <p>Your password must be super-strong</p>
+        <h2>Create a Strong Password</h2>
+        <input
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          placeholder="Enter your password"
+          style={styles.input}
+        />
+        <div
+          style={{
+            ...styles.thermometer,
+            backgroundColor: getStrengthColor(),
+            width: `${(strength / 6) * 100}%`,
+          }}
+        />
+        <p style={styles.label}>
+          {strength < 3 ? "Weak" : strength < 5 ? "Moderate" : "Strong"}{" "}
+          Password
+        </p>
+        {strength === 6 && (
+          <div>
+            <span>Good Job ! </span>
+            <button style={styles.button} onClick={handleStartSSLTest}>
+              Proceed to Task 2
+            </button>
+          </div>
+        )}
+        <h1>Rules of Safety</h1>
+        <p style={styles.instructions}>
+          Never use the same password! <br />
+          To create a more secure password, use at least 12 characters that
+          include a mix of uppercase and lowercase letters, numbers, and
+          symbols.
+          <br />
+          Avoid using sequential patterns (like "1234" or "abcd") and steer
+          clear of common words or phrases that are easily guessed. A strong
+          password should be unique and not contain any commonly used words like
+          "password" or "qwerty."
+        </p>
+      </div>
     </div>
   );
 };
