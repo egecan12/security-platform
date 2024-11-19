@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateChallengeScore } from "../features/progressSlice"; // Redux action
 import icon3 from "../imgs/icon3.png"; // Adjust the path
 
 const SSLTest: React.FC = () => {
@@ -11,16 +13,22 @@ const SSLTest: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false); // To control the black screen
 
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Initialize Redux dispatch
 
   const handleInsecureLogin = () => {
     setShowWarning(true); // Show the warning message
     setTimeout(() => {
+      // Update Redux state with a score of 0
+      dispatch(updateChallengeScore({ challengeId: "ssl-test", score: 0 }));
       navigate("/phishing-test"); // Redirect after delay
     }, 3000); // 3-second delay
   };
+
   const handleSecureLogin = () => {
-    setShowSuccess(true); // Show the warning message
+    setShowSuccess(true); // Show the success message
     setTimeout(() => {
+      // Update Redux state with a score of 10
+      dispatch(updateChallengeScore({ challengeId: "ssl-test", score: 10 }));
       navigate("/phishing-test"); // Redirect after delay
     }, 3000); // 3-second delay
   };
@@ -65,7 +73,7 @@ const SSLTest: React.FC = () => {
             zIndex: 1000,
           }}
         >
-          Good Choice ! Your password is securely encyrted!
+          Good Choice ! Your password is securely encrypted!
         </div>
       )}
 

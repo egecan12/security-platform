@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateChallengeScore } from "../features/progressSlice"; // Import Redux action
 import icon2 from "../imgs/icon2.png"; // Adjust the path
 
 const commonPasswords = [
@@ -12,6 +14,7 @@ const MakePassword: React.FC = () => {
   const [password, setPassword] = useState("");
   const [strength, setStrength] = useState(0);
   const navigate = useNavigate(); // Initialize navigate hook for redirection
+  const dispatch = useDispatch(); // Initialize dispatch for Redux actions
 
   const calculateStrength = (password: string) => {
     let score = 0;
@@ -48,7 +51,17 @@ const MakePassword: React.FC = () => {
     }
   };
 
-  const handleStartSSLTest = () => navigate("/ssl-test");
+  const handleStartSSLTest = () => {
+    if (strength === 6) {
+      // Dispatch the score update to Redux
+      dispatch(
+        updateChallengeScore({ challengeId: "make-password", score: 10 })
+      );
+      navigate("/ssl-test");
+    } else {
+      alert("Please create a super secure password to proceed.");
+    }
+  };
 
   return (
     <div>
@@ -59,6 +72,7 @@ const MakePassword: React.FC = () => {
           backgroundColor: "#007BFF",
           color: "white",
           padding: "20px",
+          textAlign: "center" as "center",
           marginBottom: "20px",
           width: "100%",
           left: 0,
@@ -66,7 +80,7 @@ const MakePassword: React.FC = () => {
           position: "relative", // Ensures the banner is stretched across the page
         }}
       >
-        <h1>Create a Strong Password</h1>
+        <h1>Create a Super Secure Password</h1>
         <p>
           In today's digital world, password security is critical. Avoid using
           common passwords and make sure your passwords are long, unique, and
@@ -111,18 +125,90 @@ const MakePassword: React.FC = () => {
             </button>
           </div>
         )}
-        <h1>Rules of Safety</h1>
-        <p style={styles.instructions}>
-          Never use the same password! <br />
-          To create a more secure password, use at least 12 characters that
-          include a mix of uppercase and lowercase letters, numbers, and
-          symbols.
-          <br />
-          Avoid using sequential patterns (like "1234" or "abcd") and steer
-          clear of common words or phrases that are easily guessed. A strong
-          password should be unique and not contain any commonly used words like
-          "password" or "qwerty."
-        </p>
+        <h1
+          style={{ marginBottom: "20px", color: "#007BFF", fontSize: "28px" }}
+        >
+          Rules of Safety
+        </h1>
+        <ul
+          style={{
+            textAlign: "left",
+            maxWidth: "600px",
+            margin: "0 auto",
+            padding: "20px",
+            backgroundColor: "#f9f9f9",
+            borderRadius: "8px",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            listStyleType: "none",
+            lineHeight: "1.8",
+            fontSize: "16px",
+            color: "#333",
+          }}
+        >
+          <li
+            style={{
+              marginBottom: "10px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <span style={{ color: "#28A745", marginRight: "10px" }}>✔️</span>
+            Never use the same password!
+          </li>
+          <li
+            style={{
+              marginBottom: "10px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <span style={{ color: "#28A745", marginRight: "10px" }}>✔️</span>
+            Use at least 12 characters that include a mix of:
+            <ul
+              style={{
+                marginTop: "10px",
+                marginLeft: "30px",
+                listStyleType: "disc",
+              }}
+            >
+              <li>Uppercase and lowercase letters</li>
+              <li>Numbers</li>
+              <li>Symbols</li>
+            </ul>
+          </li>
+          <li
+            style={{
+              marginBottom: "10px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <span style={{ color: "#28A745", marginRight: "10px" }}>✔️</span>
+            Avoid using sequential patterns like <strong>"1234"</strong> or{" "}
+            <strong>"abcd"</strong>.
+          </li>
+          <li
+            style={{
+              marginBottom: "10px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <span style={{ color: "#28A745", marginRight: "10px" }}>✔️</span>
+            Steer clear of common words or phrases that are easily guessed.
+          </li>
+          <li
+            style={{
+              marginBottom: "10px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <span style={{ color: "#28A745", marginRight: "10px" }}>✔️</span>
+            Ensure your password is unique and does not contain commonly used
+            words like <strong>"password"</strong> or <strong>"qwerty."</strong>
+          </li>
+        </ul>
       </div>
     </div>
   );
