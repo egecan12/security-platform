@@ -269,7 +269,7 @@ const SSLTest: React.FC = () => {
               onClick={handleSecureLogin}
               className="blinking-button"
               style={{
-                backgroundColor: "green",
+                backgroundColor: "red",
                 color: "white",
                 padding: "5px 20px",
                 border: "none",

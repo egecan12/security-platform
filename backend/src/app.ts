@@ -16,6 +16,8 @@ connectDB();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.use('/auth', authRoutes);
+
 
 // Basit bir test rotası
 app.get('/', (req, res) => {
@@ -29,7 +31,6 @@ app.use((req, res) => {
   });
 });
 
-app.use('/auth', authRoutes);
 
 
 const PORT = process.env.PORT || 5000;
