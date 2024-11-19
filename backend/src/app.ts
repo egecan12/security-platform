@@ -19,7 +19,14 @@ app.use(cors());
 
 // Basit bir test rotası
 app.get('/', (req, res) => {
-  res.status(400).send("2024 Welcome to API");
+  res.status(200).send("2024 Welcome to API");
+});
+// Handle unknown routes (404)
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Not Found',
+    message: 'The requested resource does not exist',
+  });
 });
 
 app.use('/auth', authRoutes);
@@ -27,3 +34,4 @@ app.use('/auth', authRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
+export default app;
