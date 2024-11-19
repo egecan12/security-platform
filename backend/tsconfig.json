@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES6",
+    "types": ["jest"], // Include Jest's type definitions
+    "typeRoots": ["node_modules/@types"], // Ensure TypeScript looks for type definitions here
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
+    "lib": ["esnext"],
     "strict": true,
     "esModuleInterop": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "*.test.ts"]
 }

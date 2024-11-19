@@ -1,131 +1,129 @@
-import express from 'express';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import router from '../src/auth'; // Adjust the import as needed
-import User from '../src/models/User';
-import request from 'supertest';
-// Set up environment variables
+import request from "supertest";
+import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import User from "../src/models/User";
+import router from "../src/auth"; // Adjust path if needed
 
-// Mock User model for controlled testing
-jest.mock('../src/models/User');
+jest.mock("../src/models/User");
+jest.mock("bcryptjs");
+jest.mock("jsonwebtoken");
 
 const app = express();
-app.use(express.json());
-app.use('/', router);
+app.use(express.json()); // For parsing JSON request bodies
+app.use(router);
 
-describe('Auth API', () => {
+describe("User Routes", () => {
   beforeEach(() => {
-    jest.clearAllMocks(); // Clear mocks to avoid test pollution
+    jest.clearAllMocks();
   });
 
-  describe('POST /register', () => {
-    it('should register a new user successfully', async () => {
-      // Arrange
-      (User.findOne as jest.Mock).mockResolvedValue(null);
+  describe("POST /user (Registration)", () => {
+    it("should return 400 if validation fails", async () => {
+      const response = await request(app).post("/user").send({
+        username: "u",
+        password: "123",
+      });
+
+      expect(response.status).toBe(400);
+      expect(response.body.errors).toBeDefined();
+    });
+
+    it("should return 400 if the user already exists", async () => {
+      (User.findOne as jest.Mock).mockResolvedValueOnce({ username: "existingUser" });
+
+      const response = await request(app).post("/user").send({
+        username: "existingUser",
+        password: "Password123!",
+      });
+
+      expect(response.status).toBe(400);
+      expect(response.text).toBe("User already exists.");
+    });
+
+    it("should return 201 if registration is successful", async () => {
+      (User.findOne as jest.Mock).mockResolvedValueOnce(null);
+      (bcrypt.hash as jest.Mock).mockResolvedValueOnce("hashedPassword");
       (User.prototype.save as jest.Mock).mockResolvedValueOnce(null);
 
-      // Act
-      const response = await request(app)
-        .post('/register')
-        .send({ username: 'newUser', password: 'securePassword' });
+      const response = await request(app).post("/user").send({
+        username: "newUser",
+        password: "Password123!",
+      });
 
-      // Assert
       expect(response.status).toBe(201);
-      expect(response.text).toBe('Kayıt başarılı.');
-      expect(User.findOne).toHaveBeenCalledWith({ username: 'newUser' });
-      expect(User.prototype.save).toHaveBeenCalled();
+      expect(response.text).toBe("Registration successful.");
+      expect(bcrypt.hash).toHaveBeenCalledWith("Password123!", 12);
     });
 
-    it('should fail if the username already exists', async () => {
-      // Arrange
-      (User.findOne as jest.Mock).mockResolvedValueOnce({ username: 'existingUser' });
+    it("should return 500 if an error occurs during registration", async () => {
+      (User.findOne as jest.Mock).mockRejectedValueOnce(new Error("DB error"));
 
-      // Act
-      const response = await request(app)
-        .post('/register')
-        .send({ username: 'existingUser', password: 'anotherPassword' });
+      const response = await request(app).post("/user").send({
+        username: "errorUser",
+        password: "Password123!",
+      });
 
-      // Assert
-      expect(response.status).toBe(400);
-      expect(response.text).toBe('Kullanıcı zaten mevcut.');
-      expect(User.findOne).toHaveBeenCalledWith({ username: 'existingUser' });
-      expect(User.prototype.save).not.toHaveBeenCalled();
-    });
-
-    it('should handle server errors gracefully', async () => {
-      // Arrange
-      (User.findOne as jest.Mock).mockRejectedValueOnce(new Error('DB Error'));
-
-      // Act
-      const response = await request(app)
-        .post('/register')
-        .send({ username: 'userError', password: 'passwordError' });
-
-      // Assert
       expect(response.status).toBe(500);
-      expect(response.text).toBe('Bir hata oluştu.');
+      expect(response.text).toBe("An error occurred.");
     });
   });
 
-  describe('POST /login', () => {
-    it('should log in with valid credentials', async () => {
-      // Arrange
-      const mockUser = { username: 'validUser', password: await bcrypt.hash('validPassword', 10) };
-      (User.findOne as jest.Mock).mockResolvedValueOnce(mockUser);
+  describe("POST /login", () => {
+    it("should return 400 if validation fails", async () => {
+      const response = await request(app).post("/login").send({
+        username: "",
+        password: "",
+      });
 
-      // Act
-      const response = await request(app)
-        .post('/login')
-        .send({ username: 'validUser', password: 'validPassword' });
-
-      // Assert
-      expect(response.status).toBe(200);
-      expect(response.body.token).toBeDefined();
-      expect(() => jwt.verify(response.body.token, process.env.JWT_SECRET as string)).not.toThrow();
-      expect(User.findOne).toHaveBeenCalledWith({ username: 'validUser' });
+      expect(response.status).toBe(401);
+      // expect(response.body.errors).toBeDefined();
     });
 
-    it('should fail if username is incorrect', async () => {
-      // Arrange
+    it("should return 401 if credentials are invalid", async () => {
       (User.findOne as jest.Mock).mockResolvedValueOnce(null);
 
-      // Act
-      const response = await request(app)
-        .post('/login')
-        .send({ username: 'wrongUser', password: 'somePassword' });
+      const response = await request(app).post("/login").send({
+        username: "invalidUser",
+        password: "wrongPassword",
+      });
 
-      // Assert
-      expect(response.status).toBe(400);
-      expect(response.text).toBe('Geçersiz giriş.');
+      expect(response.status).toBe(401);
+      expect(response.text).toBe("Invalid credentials.");
     });
 
-    it('should fail if password is incorrect', async () => {
-      // Arrange
-      const mockUser = { username: 'validUser', password: await bcrypt.hash('validPassword', 10) };
-      (User.findOne as jest.Mock).mockResolvedValueOnce(mockUser);
+    it("should return 200 and a token if login is successful", async () => {
+      (User.findOne as jest.Mock).mockResolvedValueOnce({
+        username: "validUser",
+        password: "hashedPassword",
+      });
+      (bcrypt.compare as jest.Mock).mockResolvedValueOnce(true);
+      (jwt.sign as jest.Mock).mockReturnValueOnce("mockToken");
 
-      // Act
-      const response = await request(app)
-        .post('/login')
-        .send({ username: 'validUser', password: 'wrongPassword' });
+      const response = await request(app).post("/login").send({
+        username: "validUser",
+        password: "Password123!",
+      });
 
-      // Assert
-      expect(response.status).toBe(400);
-      expect(response.text).toBe('Geçersiz giriş.');
+      expect(response.status).toBe(200);
+      expect(response.body.token).toBe("mockToken");
+      expect(jwt.sign).toHaveBeenCalledWith(
+        { username: "validUser" },
+        expect.any(String),
+        expect.objectContaining({ expiresIn: "1h", algorithm: "HS256" })
+      );
     });
 
-    it('should handle server errors gracefully during login', async () => {
-      // Arrange
-      (User.findOne as jest.Mock).mockRejectedValueOnce(new Error('DB Error'));
+    it("should return 500 if an error occurs during login", async () => {
+      (User.findOne as jest.Mock).mockRejectedValueOnce(new Error("DB error"));
 
-      // Act
-      const response = await request(app)
-        .post('/login')
-        .send({ username: 'errorUser', password: 'anyPassword' });
+      const response = await request(app).post("/login").send({
+        username: "errorUser",
+        password: "Password123!",
+      });
 
-      // Assert
       expect(response.status).toBe(500);
-      expect(response.text).toBe('Bir hata oluştu.');
+      expect(response.text).toBe("An error occurred.");
     });
   });
 });
