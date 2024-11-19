@@ -8,7 +8,7 @@ const Register: React.FC = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await fetch("http://localhost:5000/auth/register", {
+      const response = await fetch("http://localhost:5000/auth/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -49,7 +49,7 @@ const Register: React.FC = () => {
             position: "absolute",
             top: "20px",
             right: "20px",
-            backgroundColor: "green",
+            backgroundColor: "blue",
             color: "white",
             padding: "10px 20px",
             borderRadius: "5px",

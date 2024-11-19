@@ -19,7 +19,7 @@ app.use(cors());
 
 // Basit bir test rotası
 app.get('/', (req, res) => {
-  res.send('API is online!');
+  res.status(400).send("2024 Welcome to API");
 });
 
 app.use('/auth', authRoutes);

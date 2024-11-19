@@ -48,8 +48,10 @@ const App: React.FC = () => {
             path="/phishing-test"
             element={isLoggedIn ? <PhishingTest /> : <Navigate to="/login" />}
           />
-          <Route path="/stats" element={<StatsPage />} /> {/* Add this */}
-          {/* Catch-all route */}
+          <Route
+            path="/stats"
+            element={isLoggedIn ? <StatsPage /> : <Navigate to="/login" />}
+          />
           <Route
             path="*"
             element={<Navigate to={isLoggedIn ? "/dashboard" : "/"} />}

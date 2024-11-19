@@ -11,7 +11,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "default_secret";
 // Rate limiter middleware
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // Limit each IP to 5 requests per window
+  max: 50, // Limit each IP to 50 requests per window
   message: "Too many requests, please try again later.",
 });
 
@@ -38,7 +38,7 @@ const validateLogin = [
 
 // Register route
 router.post(
-  "/register",
+  "/user",
   authLimiter,
   validateRegistration,
   async (req: Request, res: Response): Promise<void> => {
@@ -91,7 +91,7 @@ router.post(
       // Find the user in the database
       const user = await User.findOne({ username });
       if (!user || !(await bcrypt.compare(password, user.password))) {
-        res.status(400).send("Invalid credentials.");
+        res.status(401).send("Invalid credentials.");
         return;
       }
 

@@ -21,7 +21,6 @@ const Login: React.FC = () => {
         const data = await response.json();
         localStorage.setItem("token", data.token); // Store token in localStorage
         localStorage.setItem("username", username); // Store username in localStorage for personalization
-        alert("Login successful!");
         navigate("/dashboard"); // Redirect to dashboard after successful login
       } else {
         const errorText = await response.text();
@@ -99,6 +98,21 @@ const Login: React.FC = () => {
           Login
         </button>
         {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+
+        {/* Register Link */}
+        <p style={{ marginTop: "20px", fontSize: "14px" }}>
+          Don't have an account?{" "}
+          <span
+            onClick={() => navigate("/register")}
+            style={{
+              color: "#007BFF",
+              cursor: "pointer",
+              textDecoration: "underline",
+            }}
+          >
+            Register here
+          </span>
+        </p>
       </div>
 
       {/* Footer */}
