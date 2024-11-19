@@ -13,6 +13,7 @@ const commonPasswords = [
 const MakePassword: React.FC = () => {
   const [password, setPassword] = useState("");
   const [strength, setStrength] = useState(0);
+  const [showModal, setShowModal] = useState(true); // Control the modal visibility
   const navigate = useNavigate(); // Initialize navigate hook for redirection
   const dispatch = useDispatch(); // Initialize dispatch for Redux actions
 
@@ -65,7 +66,137 @@ const MakePassword: React.FC = () => {
 
   return (
     <div>
-      {" "}
+      {/* Modal */}
+      {showModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 2000,
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "20px",
+              borderRadius: "10px",
+              width: "80%",
+              maxWidth: "700px",
+              textAlign: "center",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <h2 style={{ color: "#007BFF" }}>Rules of Safety</h2>
+            <ul
+              style={{
+                textAlign: "left",
+                marginTop: "20px",
+                listStyleType: "none",
+                lineHeight: "1.8",
+                fontSize: "16px",
+                color: "#333",
+              }}
+            >
+              <li
+                style={{
+                  marginBottom: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ color: "#28A745", marginRight: "10px" }}>
+                  ✔️
+                </span>
+                Never use the same password!
+              </li>
+              <li
+                style={{
+                  marginBottom: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ color: "#28A745", marginRight: "10px" }}>
+                  ✔️
+                </span>
+                Use at least 12 characters that include a mix of:
+                <ul
+                  style={{
+                    marginTop: "10px",
+                    marginLeft: "30px",
+                    listStyleType: "disc",
+                  }}
+                >
+                  <li>Uppercase and lowercase letters</li>
+                  <li>Numbers</li>
+                  <li>Symbols</li>
+                </ul>
+              </li>
+              <li
+                style={{
+                  marginBottom: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ color: "#28A745", marginRight: "10px" }}>
+                  ✔️
+                </span>
+                Avoid using sequential patterns like <strong>"1234"</strong> or{" "}
+                <strong>"abcd"</strong>.
+              </li>
+              <li
+                style={{
+                  marginBottom: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ color: "#28A745", marginRight: "10px" }}>
+                  ✔️
+                </span>
+                Steer clear of common words or phrases that are easily guessed.
+              </li>
+              <li
+                style={{
+                  marginBottom: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ color: "#28A745", marginRight: "10px" }}>
+                  ✔️
+                </span>
+                Ensure your password is unique and does not contain commonly
+                used words like <strong>"password"</strong> or{" "}
+                <strong>"qwerty."</strong>
+              </li>
+            </ul>
+            <button
+              onClick={() => setShowModal(false)}
+              style={{
+                marginTop: "20px",
+                backgroundColor: "#007BFF",
+                color: "white",
+                padding: "10px 20px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              Got It
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Blue Banner */}
       <div
         style={{
@@ -88,17 +219,26 @@ const MakePassword: React.FC = () => {
         </p>
       </div>
       <div style={styles.container}>
+        {/* Remaining page content */}
         <h1>Task 1</h1>
         <img
           src={icon2}
           alt="Description of the image"
           style={{ width: "200px" }}
-        />{" "}
+        />
         <p>
           Learn to generate password secure in order to move on to next step.
         </p>
         <p>Your password must be super-strong</p>
         <h2>Create a Strong Password</h2>
+        {strength === 6 && (
+          <div>
+            <span>Good Job ! </span>
+            <button style={styles.button} onClick={handleStartSSLTest}>
+              Proceed to Task 2
+            </button>
+          </div>
+        )}
         <input
           type="password"
           value={password}
@@ -117,98 +257,6 @@ const MakePassword: React.FC = () => {
           {strength < 3 ? "Weak" : strength < 5 ? "Moderate" : "Strong"}{" "}
           Password
         </p>
-        {strength === 6 && (
-          <div>
-            <span>Good Job ! </span>
-            <button style={styles.button} onClick={handleStartSSLTest}>
-              Proceed to Task 2
-            </button>
-          </div>
-        )}
-        <h1
-          style={{ marginBottom: "20px", color: "#007BFF", fontSize: "28px" }}
-        >
-          Rules of Safety
-        </h1>
-        <ul
-          style={{
-            textAlign: "left",
-            maxWidth: "600px",
-            margin: "0 auto",
-            padding: "20px",
-            backgroundColor: "#f9f9f9",
-            borderRadius: "8px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            listStyleType: "none",
-            lineHeight: "1.8",
-            fontSize: "16px",
-            color: "#333",
-          }}
-        >
-          <li
-            style={{
-              marginBottom: "10px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <span style={{ color: "#28A745", marginRight: "10px" }}>✔️</span>
-            Never use the same password!
-          </li>
-          <li
-            style={{
-              marginBottom: "10px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <span style={{ color: "#28A745", marginRight: "10px" }}>✔️</span>
-            Use at least 12 characters that include a mix of:
-            <ul
-              style={{
-                marginTop: "10px",
-                marginLeft: "30px",
-                listStyleType: "disc",
-              }}
-            >
-              <li>Uppercase and lowercase letters</li>
-              <li>Numbers</li>
-              <li>Symbols</li>
-            </ul>
-          </li>
-          <li
-            style={{
-              marginBottom: "10px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <span style={{ color: "#28A745", marginRight: "10px" }}>✔️</span>
-            Avoid using sequential patterns like <strong>"1234"</strong> or{" "}
-            <strong>"abcd"</strong>.
-          </li>
-          <li
-            style={{
-              marginBottom: "10px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <span style={{ color: "#28A745", marginRight: "10px" }}>✔️</span>
-            Steer clear of common words or phrases that are easily guessed.
-          </li>
-          <li
-            style={{
-              marginBottom: "10px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <span style={{ color: "#28A745", marginRight: "10px" }}>✔️</span>
-            Ensure your password is unique and does not contain commonly used
-            words like <strong>"password"</strong> or <strong>"qwerty."</strong>
-          </li>
-        </ul>
       </div>
     </div>
   );
@@ -239,16 +287,11 @@ const styles = {
     marginTop: "10px",
     fontSize: "16px",
   },
-  instructions: {
-    marginTop: "20px",
-    fontSize: "14px",
-    color: "#555",
-    lineHeight: "1.6",
-  },
   button: {
-    backgroundColor: "#007bff",
+    backgroundColor: "green",
     color: "white",
     padding: "10px 20px",
+    margin: "20px",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
