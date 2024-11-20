@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateChallengeScore } from "../features/progressSlice"; // Redux action
+import MatrixBackground from "../components/MatrixBackground"; // Import the Matrix background
 import icon2 from "../imgs/icon2.png"; // Adjust the path
 
 const commonPasswords = [
@@ -55,6 +56,7 @@ const MakePassword: React.FC = () => {
 
   return (
     <div style={styles.container}>
+      <MatrixBackground />
       {/* Modal */}
       {showModal && (
         <div style={styles.modalOverlay}>
@@ -129,6 +131,10 @@ const styles = {
   container: {
     fontFamily: "Arial, sans-serif",
     textAlign: "center" as "center",
+    position: "relative" as "relative",
+    minHeight: "100vh",
+    color: "#fff",
+    overflow: "hidden",
   },
   modalOverlay: {
     position: "fixed" as "fixed",
@@ -143,7 +149,8 @@ const styles = {
     zIndex: 1000,
   },
   modalContent: {
-    backgroundColor: "white",
+    backgroundColor: "#333",
+    color: "#fff",
     padding: "20px",
     borderRadius: "10px",
     width: "90%",
@@ -152,7 +159,7 @@ const styles = {
     textAlign: "left" as "left",
   },
   modalTitle: {
-    color: "#007BFF",
+    color: "#00FF00",
     textAlign: "center" as "center",
   },
   rulesList: {
@@ -179,7 +186,7 @@ const styles = {
     margin: "0 auto",
   },
   banner: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
     color: "white",
     padding: "20px",
     marginBottom: "20px",
@@ -188,9 +195,9 @@ const styles = {
     maxWidth: "500px",
     margin: "0 auto",
     padding: "20px",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
     borderRadius: "10px",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)",
   },
   icon: {
     width: "100px",
@@ -201,8 +208,11 @@ const styles = {
     padding: "10px",
     marginBottom: "10px",
     borderRadius: "5px",
-    border: "1px solid #ccc",
+    border: "1px solid #555",
     fontSize: "16px",
+    backgroundColor: "#222",
+    color: "#fff",
+    outline: "none",
   },
   thermometer: {
     height: "10px",
@@ -214,7 +224,7 @@ const styles = {
   strengthLabel: {
     margin: "10px 0",
     fontSize: "16px",
-    color: "#333",
+    color: "#fff",
   },
   proceedButton: {
     backgroundColor: "#28A745",

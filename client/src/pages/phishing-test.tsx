@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateChallengeScore } from "../features/progressSlice"; // Redux action
 import { useNavigate } from "react-router-dom";
+import MatrixBackground from "../components/MatrixBackground"; // Import the Matrix background
 import adidasImage from "../imgs/phishing-test/adidas.png";
 import awsImage from "../imgs/phishing-test/aws.png";
 import bookingImage from "../imgs/phishing-test/booking.png";
@@ -64,12 +65,13 @@ const PhishingTest: React.FC = () => {
 
   return (
     <div style={styles.container}>
+      <MatrixBackground />
       {/* Modal */}
       {showModal && (
         <div style={styles.modalOverlay}>
           <div style={styles.modalContent}>
-            <h2 style={{ color: "#007BFF" }}>What Are Phishing Emails?</h2>
-            <p style={{ fontSize: "14px", lineHeight: "1.6", color: "#333" }}>
+            <h2 style={styles.modalTitle}>What Are Phishing Emails?</h2>
+            <p style={styles.modalText}>
               Phishing emails are fraudulent attempts to obtain sensitive
               information by pretending to be a trustworthy entity. Here’s how
               to spot them:
@@ -117,7 +119,7 @@ const PhishingTest: React.FC = () => {
         ></div>
       </div>
 
-      {/* Blue Banner */}
+      {/* Banner */}
       <div style={styles.banner}>
         <h1>Phishing Test</h1>
         <p>
@@ -158,10 +160,13 @@ const styles = {
   container: {
     fontFamily: "Arial, sans-serif",
     textAlign: "center" as "center",
-    padding: "20px",
+    position: "relative" as "relative",
+    minHeight: "100vh",
+    color: "#fff",
+    overflow: "hidden",
   },
   banner: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
     color: "white",
     padding: "20px",
     borderRadius: "8px",
@@ -169,7 +174,7 @@ const styles = {
   },
   progressBarContainer: {
     height: "10px",
-    backgroundColor: "#ddd",
+    backgroundColor: "#333",
     borderRadius: "5px",
     marginBottom: "20px",
     overflow: "hidden",
@@ -184,8 +189,9 @@ const styles = {
     display: "inline-block",
     borderRadius: "10px",
     overflow: "hidden",
-    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
     marginBottom: "20px",
+    backgroundColor: "#222",
   },
   image: {
     width: "100%",
@@ -241,20 +247,29 @@ const styles = {
     left: 0,
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     zIndex: 2000,
   },
   modalContent: {
-    backgroundColor: "white",
+    backgroundColor: "#333",
     padding: "20px",
     borderRadius: "10px",
     width: "80%",
     maxWidth: "600px",
     textAlign: "center" as "center",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.5)",
+    color: "#fff",
+  },
+  modalTitle: {
+    color: "#00FF00",
+    marginBottom: "10px",
+  },
+  modalText: {
+    fontSize: "14px",
+    lineHeight: "1.6",
   },
   modalButton: {
     marginTop: "20px",
@@ -271,7 +286,7 @@ const styles = {
     listStyleType: "disc",
     lineHeight: "1.8",
     fontSize: "14px",
-    color: "#333",
+    color: "#fff",
   },
 };
 

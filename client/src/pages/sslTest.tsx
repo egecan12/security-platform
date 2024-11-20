@@ -59,7 +59,13 @@ const SSLTest: React.FC = () => {
         }
       `}
       </style>
-      <div style={{ fontFamily: "Arial, sans-serif", textAlign: "center" }}>
+      <div
+        style={{
+          fontFamily: "Arial, sans-serif",
+          textAlign: "center",
+          backgroundColor: "black",
+        }}
+      >
         {/* Modal */}
         {showModal && (
           <div
