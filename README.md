@@ -7,6 +7,8 @@
 
 This repository contains a **Security Awareness Training Platform** designed to educate users on essential cybersecurity practices. The application walks users through various tasks, including:
 
+https://github.com/user-attachments/assets/5c6b68f5-d84e-49af-b1bc-82352e0d83f6
+
 - Generating strong passwords.
 - Identifying phishing attempts.
 - Learning about SSL encryption.
