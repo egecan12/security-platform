@@ -7,7 +7,7 @@
 
 This repository contains a **Security Awareness Training Platform** designed to educate users on essential cybersecurity practices. The application walks users through various tasks, including:
 
-https://github.com/user-attachments/assets/5c6b68f5-d84e-49af-b1bc-82352e0d83f6
+![Platform Demo](https://github.com/user-attachments/assets/5c6b68f5-d84e-49af-b1bc-82352e0d83f6)
 
 - Generating strong passwords.
 - Identifying phishing attempts.
@@ -15,13 +15,15 @@ https://github.com/user-attachments/assets/5c6b68f5-d84e-49af-b1bc-82352e0d83f6
 
 The platform includes interactive challenges and assessments to evaluate the user's understanding of security concepts.
 
+---
+
 ## Features
 
 - **User Authentication:** Secure login and registration system.
 - **Interactive Challenges:** Tasks to strengthen cybersecurity awareness.
 - **Simulations:** Tests for identifying phishing scams and weak passwords.
 - **Dynamic Feedback:** Instant feedback and scoring.
-- **Responsive UI:** Improved user experience with engaging and informative layouts.
+- **Responsive UI:** Engaging and informative layouts for a better user experience.
 
 ---
 
@@ -31,7 +33,7 @@ The platform includes interactive challenges and assessments to evaluate the use
 
 Before setting up the project, ensure you have the following installed:
 
-- **Node.js** (v16 is Required. Higher versions are not supported)
+- **Node.js** (v16.0.0 or higher)
 - **MongoDB** (Running locally or connected via a cloud service)
 
 ### Setup
@@ -39,74 +41,94 @@ Before setting up the project, ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone  git@github.com:egecan12/security-platform.git
-   cd security-platform
+   git clone https://github.com/your-username/security-training-platform.git
+   cd security-training-platform
    ```
 
-2.Install backend dependencies:
+2. Install backend dependencies:
 
-cd backend
-npm install
+   ```bash
+   cd backend
+   npm install
+   ```
 
-3.Install frontend dependencies:
+3. Install frontend dependencies:
 
-cd ../client
-npm install
+   ```bash
+   cd ../frontend
+   npm install
+   ```
 
-4.Create an .env file in the backend folder with the following:
-PORT=5000
-JWT_SECRET=your_jwt_secret
-MONGO_URI=mongodb_connection_string
+4. Create an `.env` file in the `backend` folder with the following:
 
-5.Run the backend server:
+   ```env
+   PORT=5000
+   JWT_SECRET=your_jwt_secret
+   MONGO_URI=mongodb_connection_string
+   ```
 
-cd backend
+5. Run the backend server:
 
-You must build backend before you run the code.
+   ```bash
+   cd backend
+   npm run dev
+   ```
 
-npm run build
-npm run dev
+6. Run the frontend server:
 
-6.Run the frontend server:
-
-cd ../frontend
-npm start
+   ```bash
+   cd ../frontend
+   npm start
+   ```
 
 ---
 
-### Part 2: Project Structure
+## Testing
 
-```markdown
+Testing scripts are included for both the backend and frontend:
+
+- To test the backend:
+
+  ```bash
+  cd backend
+  npm test
+  ```
+
+- To test the frontend:
+
+  ```bash
+  cd ../frontend
+  npm test
+  ```
+
 ---
-
-## Tests
-
-We used JestJS Framework to create tests.
-
-you should run this command
-
-npm run test
 
 ## Project Structure
 
 ### Backend
+
 Located in the `backend` folder, it handles:
+
 - **Authentication and Authorization**
 - **User Management**
 - **APIs for Challenge Scoring**
 
 Key files:
+
 - `server.ts`: Main entry point for the server.
 - `routes/auth.ts`: Routes for login and registration.
 - `models/User.ts`: Mongoose schema for user data.
 
 ### Frontend
+
 Located in the `frontend` folder, it manages:
+
 - **Interactive UI**
 - **Dynamic Feedback**
 - **User Progress Tracking**
 
 Key components:
+
 - `Login.tsx`: Login functionality.
 - `Register.tsx`: Registration form.
 - `Dashboard.tsx`: Main user dashboard.
@@ -133,27 +155,45 @@ Key components:
 3. **Scoring System**:
    - Challenges are scored dynamically.
    - The user's progress is tracked in the `progressSlice` state.
-```
 
 ---
-
-## Tests,
 
 ## How to Contribute
 
 We welcome contributions to improve this platform! Here's how you can help:
 
-1.  Fork the repository.
-2.  Create a new branch for your feature or bugfix:
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix:
 
-    ```bash
-    git checkout -b feature-name
-    ```
+   ```bash
+   git checkout -b feature-name
+   ```
 
-    Acknowledgements
+3. Make your changes and commit them:
 
-        Have I Been Pwned: For password breach validation.
-        React Icons: For UI enhancements.
-        Node.js and MongoDB: Backbone technologies for the project.
+   ```bash
+   git commit -m "Add feature or fix bug"
+   ```
 
-Contact
+4. Push your changes:
+
+   ```bash
+   git push origin feature-name
+   ```
+
+5. Open a Pull Request on the repository.
+
+---
+
+## Acknowledgements
+
+- **[Have I Been Pwned](https://haveibeenpwned.com):** For password breach validation.
+- **React Icons:** For UI enhancements.
+- **Node.js and MongoDB:** Backbone technologies for the project.
+- **Egecan Kahyaoğlu:** Developer and designer of this platform.
+
+---
+
+## Contact
+
+For questions or feedback, please email [kahyaogluegecan@gmail.com](mailto:kahyaogluegecan@gmail.com).
