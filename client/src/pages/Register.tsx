@@ -10,11 +10,14 @@ const Register: React.FC = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await fetch("http://localhost:5000/auth/user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await fetch(
+        "https://security-platform-amyr.onrender.com/auth/user",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
       if (response.ok) {
         alert("Registration successful!");
@@ -69,9 +72,7 @@ const Register: React.FC = () => {
         </button>
       </div>
 
-      <footer style={styles.footer}>
-        
-      </footer>
+      <footer style={styles.footer}></footer>
     </div>
   );
 };
