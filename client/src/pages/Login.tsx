@@ -25,7 +25,7 @@ const Login: React.FC = () => {
         const data = await response.json();
         localStorage.setItem("token", data.token); // Store token in localStorage
         localStorage.setItem("username", username); // Store username in localStorage
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       } else if (response.status === 401) {
         setError("Invalid credentials. Please try again.");
       } else if (response.status === 404) {
