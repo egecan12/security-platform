@@ -7,8 +7,6 @@
 
 This repository contains a **Security Awareness Training Platform** designed to educate users on essential cybersecurity practices. The application walks users through various tasks, including:
 
-![Platform Demo](https://github.com/user-attachments/assets/5c6b68f5-d84e-49af-b1bc-82352e0d83f6)
-
 - Generating strong passwords.
 - Identifying phishing attempts.
 - Learning about SSL encryption.
@@ -23,7 +21,7 @@ The platform includes interactive challenges and assessments to evaluate the use
 - **Interactive Challenges:** Tasks to strengthen cybersecurity awareness.
 - **Simulations:** Tests for identifying phishing scams and weak passwords.
 - **Dynamic Feedback:** Instant feedback and scoring.
-- **Responsive UI:** Engaging and informative layouts for a better user experience.
+- **Responsive UI:** Engaging and informative layouts.
 
 ---
 
@@ -31,9 +29,9 @@ The platform includes interactive challenges and assessments to evaluate the use
 
 ### Prerequisites
 
-Before setting up the project, ensure you have the following installed:
+Ensure you have the following installed:
 
-- **Node.js** (v16.0.0 or higher)
+- **Node.js** (v16 is required; higher versions are not supported)
 - **MongoDB** (Running locally or connected via a cloud service)
 
 ### Setup
@@ -41,8 +39,8 @@ Before setting up the project, ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/security-training-platform.git
-   cd security-training-platform
+   git clone git@github.com:egecan12/security-platform.git
+   cd security-platform
    ```
 
 2. Install backend dependencies:
@@ -55,11 +53,11 @@ Before setting up the project, ensure you have the following installed:
 3. Install frontend dependencies:
 
    ```bash
-   cd ../frontend
+   cd ../client
    npm install
    ```
 
-4. Create an `.env` file in the `backend` folder with the following:
+4. Create an `.env` file in the backend folder with the following:
 
    ```env
    PORT=5000
@@ -71,6 +69,7 @@ Before setting up the project, ensure you have the following installed:
 
    ```bash
    cd backend
+   npm run build
    npm run dev
    ```
 
@@ -83,23 +82,13 @@ Before setting up the project, ensure you have the following installed:
 
 ---
 
-## Testing
+## Tests
 
-Testing scripts are included for both the backend and frontend:
+We used the JestJS Framework to create tests. Run tests with the following command:
 
-- To test the backend:
-
-  ```bash
-  cd backend
-  npm test
-  ```
-
-- To test the frontend:
-
-  ```bash
-  cd ../frontend
-  npm test
-  ```
+```bash
+npm run test
+```
 
 ---
 
@@ -154,7 +143,7 @@ Key components:
 
 3. **Scoring System**:
    - Challenges are scored dynamically.
-   - The user's progress is tracked in the `progressSlice` state.
+   - User progress is tracked in the `progressSlice` state.
 
 ---
 
@@ -169,31 +158,18 @@ We welcome contributions to improve this platform! Here's how you can help:
    git checkout -b feature-name
    ```
 
-3. Make your changes and commit them:
-
-   ```bash
-   git commit -m "Add feature or fix bug"
-   ```
-
-4. Push your changes:
-
-   ```bash
-   git push origin feature-name
-   ```
-
-5. Open a Pull Request on the repository.
+3. Make your changes and submit a pull request.
 
 ---
 
 ## Acknowledgements
 
-- **[Have I Been Pwned](https://haveibeenpwned.com):** For password breach validation.
-- **React Icons:** For UI enhancements.
-- **Node.js and MongoDB:** Backbone technologies for the project.
-- **Egecan Kahyaoğlu:** Developer and designer of this platform.
+- **Have I Been Pwned**: For password breach validation.
+- **React Icons**: For UI enhancements.
+- **Node.js and MongoDB**: Backbone technologies for the project.
 
 ---
 
 ## Contact
 
-For questions or feedback, please email [kahyaogluegecan@gmail.com](mailto:kahyaogluegecan@gmail.com).
+For any questions, feel free to contact us.
