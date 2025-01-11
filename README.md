@@ -39,9 +39,8 @@ Before setting up the project, ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/security-training-platform.git
-   cd security-training-platform
-
+   git clone  https://github.com/egecan12/security
+   cd security-platform
    ```
 
 2.Install backend dependencies:
@@ -51,7 +50,7 @@ npm install
 
 3.Install frontend dependencies:
 
-cd ../frontend
+cd ../client
 npm install
 
 4.Create an .env file in the backend folder with the following:

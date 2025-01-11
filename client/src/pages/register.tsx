@@ -70,9 +70,7 @@ const Register: React.FC = () => {
       </div>
 
       <footer style={styles.footer}>
-        <p>
-          Built by <strong>Egecan Kahyaoğlu</strong>
-        </p>
+        
       </footer>
     </div>
   );
