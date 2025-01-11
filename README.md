@@ -31,7 +31,7 @@ The platform includes interactive challenges and assessments to evaluate the use
 
 Ensure you have the following installed:
 
-- **Node.js** (v16 is required; higher versions are not supported)
+- **Node.js** (v16.20.2 is required; higher versions are not supported)
 - **MongoDB** (Running locally or connected via a cloud service)
 
 ### Setup
