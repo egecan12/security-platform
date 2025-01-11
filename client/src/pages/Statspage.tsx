@@ -51,7 +51,7 @@ const StatsPage: React.FC = () => {
       }}
     >
       {/* Confetti Animation */}
-      <Confetti width={width} height={height} numberOfPieces={250} />
+      <Confetti width={width} height={height} numberOfPieces={100} />
       {/* Blue Banner */}
       <div
         style={{
@@ -140,10 +140,14 @@ const StatsPage: React.FC = () => {
           Retake Test
         </button>
         <button
-          onClick={() => alert("Thank you for participating!")}
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            window.location.href = "/";
+          }}
           style={{
             marginTop: "20px",
-            backgroundColor: "#28A745",
+            backgroundColor: "#dc3545",
             color: "white",
             padding: "10px 20px",
             borderRadius: "5px",
