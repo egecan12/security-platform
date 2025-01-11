@@ -378,11 +378,7 @@ const SSLTest: React.FC = () => {
             fontSize: "14px",
             color: "#555",
           }}
-        >
-          <p>
-            Developed by <strong>Egecan Kahyaoğlu</strong>
-          </p>
-        </footer>
+        ></footer>
       </div>{" "}
     </>
   );

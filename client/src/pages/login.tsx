@@ -89,11 +89,7 @@ const Login: React.FC = () => {
       </div>
 
       {/* Footer */}
-      <footer style={styles.footer}>
-        <p>
-          Developed by <strong>Egecan Kahyaoğlu</strong>
-        </p>
-      </footer>
+      <footer style={styles.footer}></footer>
     </div>
   );
 };

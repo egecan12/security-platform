@@ -31,7 +31,7 @@ The platform includes interactive challenges and assessments to evaluate the use
 
 Before setting up the project, ensure you have the following installed:
 
-- **Node.js** (v16 or later)
+- **Node.js** (v16 is Required. Higher versions are not supported)
 - **MongoDB** (Running locally or connected via a cloud service)
 
 ### Setup
@@ -39,7 +39,7 @@ Before setting up the project, ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone  https://github.com/egecan12/security
+   git clone  git@github.com:egecan12/security-platform.git
    cd security-platform
    ```
 
@@ -61,6 +61,10 @@ MONGO_URI=mongodb_connection_string
 5.Run the backend server:
 
 cd backend
+
+You must build backend before you run the code.
+
+npm run build
 npm run dev
 
 6.Run the frontend server:
@@ -74,6 +78,14 @@ npm start
 
 ```markdown
 ---
+
+## Tests
+
+We used JestJS Framework to create tests.
+
+you should run this command
+
+npm run test
 
 ## Project Structure
 
@@ -125,6 +137,8 @@ Key components:
 
 ---
 
+## Tests,
+
 ## How to Contribute
 
 We welcome contributions to improve this platform! Here's how you can help:
@@ -141,8 +155,5 @@ We welcome contributions to improve this platform! Here's how you can help:
         Have I Been Pwned: For password breach validation.
         React Icons: For UI enhancements.
         Node.js and MongoDB: Backbone technologies for the project.
-        Egecan Kahyaoğlu: Developer and designer of this platform.
 
 Contact
-
-For questions or feedback, please email [kahyaogluegecan@gmail.com].
