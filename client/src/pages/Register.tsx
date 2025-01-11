@@ -6,9 +6,12 @@ import MatrixBackground from "../components/MatrixBackground"; // Import the bac
 const Register: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async () => {
+    setError(""); // Reset any previous errors
+
     try {
       const response = await fetch(
         "https://security-platform-amyr.onrender.com/auth/user",
@@ -20,14 +23,17 @@ const Register: React.FC = () => {
       );
 
       if (response.ok) {
-        alert("Registration successful!");
         navigate("/dashboard");
+      } else if (response.status === 400) {
+        setError("Invalid input. Please check your details.");
+      } else if (response.status === 409) {
+        setError("Username already exists. Please choose a different one.");
       } else {
         const errorMessage = await response.text();
-        alert(`Registration failed: ${errorMessage}`);
+        setError(errorMessage || "An unexpected error occurred.");
       }
-    } catch (error) {
-      alert(`An error occurred: ${error}`);
+    } catch (err) {
+      setError("There was an error. Please check your network connection.");
     }
   };
 
@@ -70,6 +76,7 @@ const Register: React.FC = () => {
         <button style={styles.registerButton} onClick={handleRegister}>
           Register
         </button>
+        {error && <p style={styles.errorMessage}>{error}</p>}
       </div>
 
       <footer style={styles.footer}></footer>
@@ -167,6 +174,10 @@ const styles = {
     cursor: "pointer",
     fontSize: "16px",
     transition: "background-color 0.3s ease",
+  },
+  errorMessage: {
+    color: "red",
+    marginTop: "10px",
   },
   footer: {
     marginTop: "20px",

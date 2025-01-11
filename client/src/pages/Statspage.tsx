@@ -51,7 +51,7 @@ const StatsPage: React.FC = () => {
       }}
     >
       {/* Confetti Animation */}
-      <Confetti width={width} height={height} numberOfPieces={750} />
+      <Confetti width={width} height={height} numberOfPieces={250} />
       {/* Blue Banner */}
       <div
         style={{

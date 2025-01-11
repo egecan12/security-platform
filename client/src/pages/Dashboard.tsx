@@ -13,7 +13,8 @@ const Dashboard: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    navigate("/dashboard");
+
+    window.location.href = "/"; // Use this instead of navigate
   };
 
   return (

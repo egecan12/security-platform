@@ -17,7 +17,19 @@ import store from "../src/store/store";
 import StatsPage from "./pages/Statspage"; // Import the stats page
 
 const App: React.FC = () => {
-  const isLoggedIn = !!localStorage.getItem("token");
+  const [isLoggedIn, setIsLoggedIn] = React.useState(
+    !!localStorage.getItem("token")
+  );
+
+  React.useEffect(() => {
+    // Update login state whenever localStorage changes
+    const checkAuth = () => {
+      setIsLoggedIn(!!localStorage.getItem("token"));
+    };
+
+    window.addEventListener("storage", checkAuth);
+    return () => window.removeEventListener("storage", checkAuth);
+  }, []);
 
   return (
     <Provider store={store}>
@@ -56,10 +68,6 @@ const App: React.FC = () => {
           <Route
             path="/stats"
             element={isLoggedIn ? <StatsPage /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="*"
-            element={<Navigate to={isLoggedIn ? "/dashboard" : "/"} />}
           />
         </Routes>
       </Router>
