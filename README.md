@@ -10,13 +10,8 @@
 An interactive Security Awareness Training Platform built with modern technologies to help users understand and practice essential cybersecurity concepts.
 
 
-<div align="center">
-  <video width="720" controls>
-    <source src="https://github-production-user-asset-6210df.s3.amazonaws.com/45043515/387904500-5c6b68f5-d84e-49af-b1bc-82352e0d83f6.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
 
+![Platform Demo](https://github.com/user-attachments/assets/5c6b68f5-d84e-49af-b1bc-82352e0d83f6)
 
 ---
 
